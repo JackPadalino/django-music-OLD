@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
-      <div>This is the nav div</div>
-      {% block content %}
-      {% endblock %}
+    <div>
+      <a href="{% url 'main:home' %}">Home</a>
+      <a href="{% url 'music:catalog' %}">Music Catalog</a>
+      <a href="{% url 'music:upload' %}">Upload</a>
+    </div>
+    <div>{% block content %} {% endblock %}</div>
   </body>
 </html>

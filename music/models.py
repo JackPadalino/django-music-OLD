@@ -1,5 +1,8 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
+from django.dispatch import receiver
+from django.db.models.signals import post_delete
+import os
 
 # Create your models here.
 class Artist(models.Model):
@@ -8,21 +11,19 @@ class Artist(models.Model):
     def __str__(self):
         return self.name
 
-# class Album(models.Model):
-#     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
-#     title = models.CharField(max_length=100)
-#     release_date = models.DateField()
-
 class Track(models.Model):
-    # artist_name = models.CharField(max_length=100)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     genre = models.CharField(max_length=50)
     file = models.FileField(upload_to='uploads/',validators=[FileExtensionValidator(allowed_extensions=['mp3'])])
-
     # release_date = models.DateField()
 
     def __str__(self):
         return f'{self.artist} - {self.title}'
-    
-    
+
+# signal to handle file path deletion upon instance deletion
+@receiver(post_delete, sender=Track)
+def delete_file_on_track_delete(sender, instance, **kwargs):
+    file_path = instance.file.path
+    if os.path.exists(file_path):
+        os.remove(file_path)

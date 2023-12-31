@@ -4,6 +4,8 @@ from . import views
 app_name="music"
 
 urlpatterns = [
-    path("", views.catalog, name="catalog"),
-    path("upload/", views.upload, name="upload")
+    path("", views.CatalogView.as_view(), name="catalog"),
+    path("upload/", views.upload, name="upload"),
+    path("download/<int:pk>", views.download, name="download"),
+    # path("upload-track/", views.upload_track, name="upload_track")
 ]

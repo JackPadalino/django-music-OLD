@@ -1,4 +1,10 @@
 {% extends 'main/main.html' %} {% block content %}
 <h1>Music Catalog</h1>
 <p>Check out our music catalog</p>
-{% endblock content %}
+{% if track_list %}
+<ul>
+  {% for track in track_list %}
+  <li>{{track.artist.name}} - {{track.title}}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% endblock content %}

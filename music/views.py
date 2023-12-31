@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.views import generic
 from django.http import HttpResponseRedirect
-from .forms import UploadTrackForm
+from django.http import HttpResponse
+from django.views import generic
 from django.urls import reverse
+from .forms import UploadTrackForm
 from .models import Artist,Track
 
 # Create your views here.
@@ -32,3 +33,9 @@ def upload(request):
         form = UploadTrackForm()
     context = {"form":form}
     return render(request, "music/upload.html", context)
+
+def download(request, pk):
+    track = Track.objects.get(pk=pk)
+    response = HttpResponse(track.file, content_type='application/force-download')
+    response['Content-Disposition'] = f'attachment; filename="{track.artist.name} - {track.title}.mp3"'
+    return response

@@ -4,7 +4,13 @@
 {% if track_list %}
 <ul>
   {% for track in track_list %}
-  <li>{{track.artist.name}} - {{track.title}}</li>
+  <!-- <li>{{track.artist.name}} - {{track.title}}</li> -->
+  <li>
+    <span
+      >{{ track.artist.name }} - {{track.title}}
+      <a href="{% url 'music:download' track.id %}">download</a></span
+    >
+  </li>
   {% endfor %}
 </ul>
 {% endif %} {% endblock content %}

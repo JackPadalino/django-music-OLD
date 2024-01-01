@@ -11,13 +11,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializers import ArtistSerializer,TrackSerializer
+from .serializers import ArtistSerializer,TrackSerializer,ArtistAndTracksSerializer
 from .models import Artist,Track
 
 class AllArtistsAPIView(APIView):
     def get(self,request,format=None):
         artists = Artist.objects.all()
-        serializer = ArtistSerializer(artists, many=True)
+        serializer = ArtistAndTracksSerializer(artists, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class AllTracksAPIView(APIView):

@@ -20,26 +20,22 @@ class AllArtistsAPIView(APIView):
         serializer = ArtistAndTracksSerializer(artists, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def post(self, request, format=None):
+        serializer = ArtistSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class AllTracksAPIView(APIView):
     def get(self,request,format=None):
         tracks = Track.objects.all()
         serializer = TrackSerializer(tracks,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-# class ProjectTopicAPIView(APIView):
-#     def get(self,request,format=None):
-#         topics = ProjectTopic.objects.all()
-#         serializer = ProjectTopicSerializer(topics,many=True)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
-
-# class AllProjectsAPIView(APIView):
-#     def get(self,request,format=None):
-#         projects = Project.objects.all()
-#         serializer = ProjectSerializer(projects, many=True)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
-
-# class SingleProjectAPIView(APIView):
-#     def get(self,request,pk,format=None):
-#         project = Project.objects.get(pk=pk)
-#         serializer = ProjectSerializer(project)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
+    def post(self, request, format=None):
+        serializer = TrackSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

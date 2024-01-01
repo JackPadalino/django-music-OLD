@@ -9,6 +9,7 @@ urlpatterns = [
     path("download/<int:pk>", views.download, name="download"),
     # api endpoints
     path("api/artists", api.AllArtistsAPIView.as_view(), name="api-all-artists"),
+    path("api/artists/<int:pk>", api.SingleArtistAPIView.as_view(), name="api-single-artist"),
     path("api/tracks", api.AllTracksAPIView.as_view(), name="api-all-tracks"),
-    # path("api/questions/<int:pk>", api.SingleQuestionAPIView.as_view(), name="api-single-question")
+    path("api/tracks/<int:pk>", api.SingleTrackAPIView.as_view(), name="api-single-track")
 ]

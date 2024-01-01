@@ -30,7 +30,7 @@ class AllArtistsAPIView(APIView):
 class SingleArtistAPIView(APIView):
     def get(self,request,pk,format=None):
         artist = Artist.objects.get(pk=pk)
-        serializer = ArtistSerializer(artist)
+        serializer = ArtistAndTracksSerializer(artist)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class AllTracksAPIView(APIView):

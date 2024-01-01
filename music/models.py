@@ -14,7 +14,7 @@ class Artist(models.Model):
         return self.name
 
 class Track(models.Model):
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE,related_name='tracks')
     title = models.CharField(max_length=100)
     genre = models.CharField(max_length=50)
     file = models.FileField(upload_to='uploads/',validators=[FileExtensionValidator(allowed_extensions=['mp3'])])

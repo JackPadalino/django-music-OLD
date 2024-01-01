@@ -6,7 +6,6 @@ function App() {
   const [artists, setArtists] = useState([]);
   const fetchArtists = async () => {
     const response = await axios.get("http://localhost:8000/music/api/artists");
-    console.log(response.data);
     setArtists(response.data);
   };
 

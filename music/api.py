@@ -27,6 +27,12 @@ class AllArtistsAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class SingleArtistAPIView(APIView):
+    def get(self,request,pk,format=None):
+        artist = Artist.objects.get(pk=pk)
+        serializer = ArtistSerializer(artist)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class AllTracksAPIView(APIView):
     def get(self,request,format=None):
         tracks = Track.objects.all()
@@ -39,3 +45,9 @@ class AllTracksAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class SingleTrackAPIView(APIView):
+    def get(self,request,pk,format=None):
+        track = Track.objects.get(pk=pk)
+        serializer = TrackSerializer(track)
+        return Response(serializer.data, status=status.HTTP_200_OK)
